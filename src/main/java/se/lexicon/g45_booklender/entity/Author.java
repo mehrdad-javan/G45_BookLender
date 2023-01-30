@@ -4,6 +4,8 @@ package se.lexicon.g45_booklender.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import se.lexicon.g45_booklender.exception.DataDuplicateException;
+import se.lexicon.g45_booklender.exception.DataNotFoundException;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,5 +30,20 @@ public class Author {
     )
     private List<Book> writtenBooks = new ArrayList<>();
 
+
+    public void addBook(Book book) {
+        if (writtenBooks.contains(book)) {
+            throw new DataDuplicateException("DataDuplicateException");
+        }
+        writtenBooks.add(book);
+    }
+
+
+    public void removeBook(Book book) {
+        if (!writtenBooks.contains(book)) {
+            throw new DataNotFoundException("DataNotFoundException");
+        }
+        writtenBooks.remove(book);
+    }
 
 }
