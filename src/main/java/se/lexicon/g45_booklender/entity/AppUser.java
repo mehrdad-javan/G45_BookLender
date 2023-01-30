@@ -27,8 +27,13 @@ public class AppUser {
     @CreationTimestamp
     private LocalDate regDate;
 
-    public AppUser(String username, String password) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "details_id")
+    private Details details;
+
+    public AppUser(String username, String password, Details details) {
         this.username = username;
         this.password = password;
+        this.details = details;
     }
 }
